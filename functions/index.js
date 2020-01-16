@@ -11,8 +11,12 @@ app.set('view engine', 'hbs');
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
+app.get('/', (req, res) => {
+    res.render('posts');
+});
+
 app.get('/watch', (req, res) => {
-    res.render('index', {id: req.query.v.toString()});
+    res.render('posts', {id: req.query.v});
 });
 
 exports.app = functions.https.onRequest(app);
