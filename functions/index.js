@@ -16,7 +16,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/watch', (req, res) => {
-    res.render('posts', {id: req.query.v});
+    var id = req.query.v;
+    if(id.length > 11){
+        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = id.match(regExp);
+        if (match && match[2].length === 11) {
+            id = match[2];
+        } else {
+            id = 'ooooof';
+        }
+    }
+    res.render('posts', {id: id});
 });
 
 exports.app = functions.https.onRequest(app);
